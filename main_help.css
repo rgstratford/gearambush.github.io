@@ -5,16 +5,11 @@ body {
 
 header {
   padding: 20px 0;
-  background-image: url('https://dl.dropboxusercontent.com/u/35621774/Background_Header.png');
-  background-size: 100%;
-  background-repeat: no-repeat;
-  color: #ffffff;
-  width: 100%;
-  margin: 0px;
 }
 
 header .row,
 footer .row {
+  display: flex;
   align-items: center;
 }
 
@@ -36,7 +31,7 @@ header p {
 .jumbotron {
   display: flex;
   align-items: center;
-  background-image: url('https://dl.dropboxusercontent.com/u/35621774/Background_New.png');
+  background-image: url('https://dl.dropboxusercontent.com/u/35621774/Background.png');
   background-size: cover;
   color: #ffffff;
   height: 500px;
@@ -85,10 +80,9 @@ section .row img {
 
 footer {
   font-size: 12px;
+  padding: 20px 0;
   color: #ffffff;
   background-image: url('https://dl.dropboxusercontent.com/u/35621774/Background_Footer.png');
-  background-size: contain;
-  background-repeat: no-repeat;
 }
 
 footer .col-sm-8 {
