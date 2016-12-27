@@ -1,4 +1,0 @@
-ssh -i '/home/raymond/Desktop/GearAmbush/gearambush-key-pair-NEW.pem'  ec2-user@54.244.7.104
-
-chmod 0400 '/home/raymond/Desktop/GearAmbush/gearambush-key-pair-NEW.pem'  -- this changes the file permissions of rhe unique key
-

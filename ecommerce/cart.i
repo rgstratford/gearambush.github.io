@@ -5,9 +5,9 @@
 <meta http-equiv="content-type" content="text/html;charset=utf-8" />
 <meta http-equiv="keywords" content="" />
 <meta http-equiv="description" content="" />
-<link rel="shortcut icon" href="/images/favicon.ico" />
-<link rel="stylesheet" href="../style.css" type="text/css" />
-<script type="text/javascript" src="/js/jquery-1.8.0.min.js"></script>
+<link rel="shortcut icon" href="../images/favicon.ico" />
+<link rel="stylesheet" href="../styles/style.css" type="text/css" />
+<script type="text/javascript" src="../js/jquery-1.8.0.min.js"></script>
 <script type="text/javascript">
 $(document).ready(function(){
   $("#feedback-tab").toggle( 
@@ -61,7 +61,7 @@ $(document).ready(function(){
 </script>
 
 <div id="feedback">
-  <a id="feedback-tab" href="#"><img src="/images/btn_feedback.png" alt="Feedback" width="36" height="100" /></a>
+  <a id="feedback-tab" href="#"><img src="../images/btn_feedback.png" alt="Feedback" width="36" height="100" /></a>
   <div id="feedback-form">
 	<h1>Feedback</h1>
 	<p>Call us at 855-GEAR-AMBUSH, or use the form below:</p>
@@ -93,20 +93,20 @@ $(document).ready(function(){
 <div id="bgtop">
   <div id="bgbot">
     <div id="header" class="wrapper">
-      <a href="/"><img src="/images/logo.png" alt="Gear Ambush" id="logo" width="391" height="164" /></a>
+      <a href="/"><img src="../images/logo.png" alt="Gear Ambush" id="logo" width="391" height="164" /></a>
       <div id="nav">
         <ul>
-          <li><a href="/"><img src="/images/nav_currentdeal.png" alt="Current Deal" width="129" height="41" /></a></li>
-          <li><a href="/ecommerce/cart.i?cmd=view"><img src="/images/nav_shoppingcart.png" alt="Shopping Cart" width="126" height="41" /></a></li>
-          <li><a href="/forum"><img src="/images/nav_forum.png" alt="Forum" width="73" height="41" /></a></li>
-          <li><a href="/contact.html"><img src="/images/nav_contactus.png" alt="Contact Us" width="109" height="41" /></a></li>
+          <li><a href="/"><img src="../images/nav_currentdeal.png" alt="Current Deal" width="129" height="41" /></a></li>
+          <li><a href="../ecommerce/cart.i?cmd=view"><img src="../images/nav_shoppingcart.png" alt="Shopping Cart" width="126" height="41" /></a></li>
+          <li><a href="../forum"><img src="../images/nav_forum.png" alt="Forum" width="73" height="41" /></a></li>
+          <li><a href="../contact.html"><img src="../images/nav_contactus.png" alt="Contact Us" width="109" height="41" /></a></li>
         </ul>
       </div><!--/#nav-->
 
       <div id="somed">
           <div class="fb-like" data-href="http://gearambush.ev13.infogenix.com" data-send="true" data-layout="button_count" data-width="450" data-show-faces="true" data-font="arial"></div>
 <!--Change This Iframe Link--><!--<iframe src="//www.facebook.com/plugins/like.php?href=http%3A%2F%2Fwww.facebook.com%2FGearAmbush&amp;send=false&amp;layout=button_count&amp;width=74&amp;show_faces=false&amp;action=like&amp;colorscheme=light&amp;font&amp;height=21" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:74px; height:21px;" allowTransparency="true"></iframe>-->
-        <a href="/"><img src="/images/rss.png" alt="RSS" width="29" height="24" /></a>
+        <a href="/"><img src="../images/rss.png" alt="RSS" width="29" height="24" /></a>
       </div>
       <div class="clear"></div>
     </div>
@@ -114,7 +114,7 @@ $(document).ready(function(){
     <div id="main" class="wrapper">
       <div id="lrgbg-top">&nbsp;</div>
       <div id="lrgbg-mid">
-        <script type="text/javascript" src="js/jquery-1.8.0.min.js">
+        <script type="text/javascript" src="../js/jquery-1.8.0.min.js">
 $(document).ready( function(){
     
 });    
@@ -122,7 +122,7 @@ $(document).ready( function(){
 
 <h1>Shopping Cart</h1>
 
-<form method="post" action="/ecommerce/cart.i">
+<form method="post" action="../ecommerce/cart.i">
 <input type="hidden" name="refer" value="http%3A%2F%2Fgearambush%2Eev13%2Einfogenix%2Ecom%2F">
 <table border="0" cellpadding="4" cellspacing="1" width="100%">
   <tr>
@@ -161,10 +161,10 @@ $(document).ready( function(){
 
     <div id="footer" class="wrapper">
       <ul id="footernav">
-        <li><a href="/contact.html">Contact Us</a></li>
-        <li><a href="/shipping.html">Shipping</a></li>
-        <li><a href="/forum">Forum</a></li>
-        <li><a href="/ecommerce/cart.i?cmd=view">Shopping Cart</a></li>
+        <li><a href="../contact.html">Contact Us</a></li>
+        <li><a href="../shipping.html">Shipping</a></li>
+        <li><a href="../forum">Forum</a></li>
+        <li><a href="../ecommerce/cart.i?cmd=view">Shopping Cart</a></li>
         <li><a href="/">Current Deal</a></li>
       </ul>
       <span id="copy">Copyright &copy; 2012 Gear Ambush. All Rights Reserved.</span>
