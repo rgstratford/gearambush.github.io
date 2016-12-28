@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<title>Gear Ambush - Current Deal</title>
+<meta http-equiv="content-type" content="text/html;charset=utf-8" />
+<meta http-equiv="keywords" content="" />
+<meta http-equiv="description" content="" />
+<link rel="shortcut icon" href="images/favicon.ico" />
+<link rel="stylesheet" href="styles/style.css" type="text/css" />
+<meta name="google-site-verification" content="z0LcV8hz98fXoTXb3IUBpxN-Jq8UdU0mW8jN1jGBzNQ" />
+<link rel="stylesheet" href="http://code.jquery.com/ui/1.8.18/themes/base/jquery-ui.css" type="text/css" media="all" />
+<link rel="stylesheet" href="http://static.jquery.com/ui/css/demo-docs-theme/ui.theme.css" type="text/css" media="all" />
+<link rel="stylesheet" href="js/fancybox/source/jquery.fancybox.css?v=2.1.0" type="text/css" media="screen" />
+<link rel="stylesheet" href="js/fancybox/source/helpers/jquery.fancybox-buttons.css?v=1.0.3" type="text/css" media="screen" />
+<link rel="stylesheet" href="js/fancybox/source/helpers/jquery.fancybox-thumbs.css?v=1.0.6" type="text/css" media="screen" />
+<script type="text/javascript" src="js/jquery-1.8.0.min.js"></script>
+<script type="text/javascript" src="scripts/jquery/jquery.doTimeout.js"></script>
+<script type="text/javascript" src="scripts/jquery/jquery.countdown.min.js"></script>
+<script type="text/javascript" src="js/jquery-ui.min.js"></script>
+<script type="text/javascript" src="js/fancybox/lib/jquery.mousewheel-3.0.6.pack.js"></script>
+<script type="text/javascript" src="js/fancybox/source/jquery.fancybox.pack.js?v=2.1.0"></script>
+<!-- Optionally add helpers - button, thumbnail and/or media -->
+<script type="text/javascript" src="js/fancybox/source/helpers/jquery.fancybox-buttons.js?v=1.0.3"></script>
+<script type="text/javascript" src="js/fancybox/source/helpers/jquery.fancybox-media.js?v=1.0.3"></script>
+<script type="text/javascript" src="js/fancybox/source/helpers/jquery.fancybox-thumbs.js?v=1.0.6"></script>
+<script type="text/javascript">
+  function poll(){
+                $.ajax({
+                url: 'index.i?cmd=options_list',
+                        asynchronus:false,
+                success: function(jsonStr){
+				if(!jsonStr) {  }
+                                var jsonObj = jQuery.parseJSON(jsonStr);
+                                loadHtml(jsonObj);
+                                dateRun(jsonObj);
+                        },
+                });
+  }
+function serverTime() { 
+    var time = null; 
+    $.ajax({url: 'index.i?cmd=server_date', 
+        async: false, dataType: 'text', 
+        success: function(text) { 
+            time = new Date(text); 
+        }, error: function(http, message, exc) { 
+            time = new Date(); 
+    }}); 
+    return time; 
+}
+
+function dateRun(jsonObj){
+	var d1 = new Date(jsonObj['countdowndate']);
+  //var dtm = jsonObj['countdowndate'].split(' ');
+  //var hms = dtm[1].split(':');
+  //var nd = dtm[0].split('-');
+//alert(nd[0]+','+nd[1]+','+nd[2]+','+hms[0]+','+hms[1]+','+hms[2]+',0');
+  //var d1 = new Date(nd[0],nd[1],nd[2],hms[0],hms[1],hms[2],0);
+  //var d1 = nd[0]+','+nd[1]+','+nd[2]+','+hms[0]+','+hms[1]+','+hms[2]+',0';
+        //var localoffset = (d1.getTimezoneOffset() * 60000);
+        //var diff = localoffset - (6*60*60000);
+        //var austDay = new Date();
+	
+        d1.setTime(d1.getTime()-1000);
+
+  $('#timeleft').countdown('destroy');
+  $('#timeleft').countdown({until: d1, format: 'HMS', layout:'<span id="hours">{h10}{h1}</span>'+
+	'<span id="minutes">{m10}{m1}</span>'+
+	'<span id="seconds">{s10}{s1}</span>', onExpiry: poll});
+
+/*
+<div id="tournament">'+
+  '<div id="days1"><img height="65" width="40" alt="" src="images/countdown_{d100}.gif"></div>'+
+  '<div id="days2"><img height="65" width="40" alt="" src="images/countdown_{d10}.gif"></div>'+
+  '<div id="days3"><img height="65" width="40" alt="" src="images/countdown_{d1}.gif"></div>'+
+  '<div id="hours1"><img height="65" width="40" alt="" src="images/countdown_{h10}.gif"></div>'+
+  '<div id="hours2"><img height="65" width="40" alt="" src="images/countdown_{h1}.gif"></div>'+
+  '<div id="minutes1"><img height="65" width="40" alt="" src="images/countdown_{m10}.gif"></div>'+
+  '<div id="minutes2"><img height="65" width="40" alt="" src="images/countdown_{m1}.gif"></div>'+
+  '<div id="seconds1"><img height="65" width="40" alt="" src="images/countdown_{s10}.gif"></div>'+
+  '<div id="seconds2"><img height="65" width="40" alt="" src="images/countdown_{s1}.gif"></div>'+
+  '</div>'});
+*/
+}
+        function loadHtml(jsonObj){
+		var newname = "qty_"+jsonObj['product']['pid'];
+                $("#qty").attr("name",newname);
+		jsonObj['product']['discount'] = 100-(((jsonObj['product']['wholesale_price']-0)/(jsonObj['product']['customer_price']-0))*100);
+		jsonObj['product']['discount'] = Math.round(jsonObj['product']['discount']);
+		$('#selectsize').html('');
+                for(rowInd in jsonObj['rows']){
+                        var thisRow = $('#def_option_row').html();
+                        for(elInd in jsonObj['rows'][rowInd]){
+                                var repReg = new RegExp('--'+elInd+'--','gm');
+                                thisRow = thisRow.replace(repReg,jsonObj['rows'][rowInd][elInd]);
+                        }
+                        thisRow = thisRow.replace(/--\w+--|null/g,'');
+                        $('#selectsize').html($('#selectsize').html()+thisRow);
+			$( "#progressbar_"+jsonObj['rows'][rowInd]['fp_2_p_id'] ).progressbar({ value: 100-(jsonObj['rows'][rowInd]['percent_left']-0) });
+			$("[id^=attr_select_]").each( function() {
+				var label = $(".label",this).html();
+				var id = $(this).attr("id");
+				var val = id.replace('attr_select_','');
+
+				$(this).click( function() {
+					var qtyrows = '';
+					var maxqty = jsonObj['rows']['row_'+val]['qty']-0;
+					if(maxqty > 5) { maxqty = 5; }
+					for(var i = 1; i <= maxqty; i++) {
+						qtyrows += '<div class="qty" id="qty_select_'+i+'">'+i+'</div>'+"\n";
+					}
+					$("#selectattrtext").html(label);
+					$("#attr").val("fpa"+val);
+					$("#selectqty").html(qtyrows);
+					$("#selectsize").hide();
+				});
+			});
+			$("[id^=qty_select_]").each( function() {
+				var label1 = $(this).html();
+				var id1 = $(this).attr("id");
+				var val1 = id1.replace('qty_select_','');
+				$(this).click( function() {
+					$("#selectqtytext").html(label1);
+					$("#qty").val(val1);
+					$("#selectqty").hide();
+				});
+			});
+                }
+		var percent = 100-((((jsonObj['total_qty']-0)-(jsonObj['total_used']-0))/(jsonObj['total_qty']-0))*100);
+		$( "#progressbar_total" ).progressbar({ value: percent });
+
+                $("#price").html(jsonObj['product']['wholesale_price']);
+                $("#listprice").html(jsonObj['product']['customer_price']);
+                $("#discount").html(jsonObj['product']['discount']);
+
+		var thisProd = $("#def_option_prod").html();
+		for(prodInd in jsonObj['product']){
+			var prodReg = new RegExp('--'+prodInd+'--','gm');
+                        thisProd = thisProd.replace(prodReg,jsonObj['product'][prodInd]);
+		}
+		thisProd = thisProd.replace(/--\w+--|null/g,'');
+                $('#option_rows').html(thisProd);
+        }
+$(document).ready(function(){
+	$('#option_rows').html('');
+	poll();
+	var poll_timer = setInterval("poll()", 10000);
+
+	$("#selectattrimg, #selectattrtext").live('click', function(e) {
+		$("#selectsize").toggle();
+		e.preventDefault();
+        e.stopPropagation();
+	});
+	$("#selectqtyimg, #selectqtytext").live('click', function(e) {
+		$("#selectqty").toggle();
+		e.preventDefault();
+        e.stopPropagation();
+	});
+	$(document).click(function() {
+        $('#selectsize').hide();
+        $("#selectqty").hide();
+    });
+    /*
+	$(".qty").hover( function(){
+	    $(this).css('background-color', '#ACACAC');
+        $(this).css('border', '3px solid #ACACAC');
+	},
+	function(){
+	   $(this).css('background-color', 'transparent');
+	   $(this).css('border', 'none'); 
+	});
+	*/
+	$(".qty").live('mouseover', function(){
+        $(this).css('background-color', '#ACACAC');
+        $(this).css('border', '3px solid #ACACAC');
+
+    }).live('mouseout', function(){
+       $(this).css('background-color', 'transparent');
+       $(this).css('border', 'none'); 
+    });
+	$(".size").live('mouseover', function(){
+        $(this).css('background-color', '#ACACAC');
+        $(this).css('border', '3px solid #ACACAC');
+
+    }).live('mouseout', function(){
+       $(this).css('background-color', 'transparent');
+       $(this).css('border', 'none'); 
+    });
+    
+    $(".qty").live('click', function(){
+        var label2 = $(this).html();
+        var id2 = $(this).attr("id");
+        var val2 = id2.replace('qty_select_','');
+        $("#selectqtytext").html(label2);
+        $("#qty").val(val2);
+        $("#selectqty").hide();
+    });
+     $('.fancybox').fancybox({
+        
+    });
+    
+	$("#feedback-tab").toggle( 
+		function() {
+			$("#feedback").animate({left: '0'}, 500);
+		},
+		function() {
+			$("#feedback").animate({left: '-495'}, 500);
+		}
+	);
+	
+});
+/*
+  $(document).ready(function(){
+    $.doTimeout( 1000, function(){
+            poll();
+      return true;
+    });
+  });
+*/
+</script>
+
+<meta name="robots" content="noindex, nofollow">
+</head>
+<body>
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/all.js#xfbml=1";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+<script type="text/javascript">
+ function checkfeedbackform(){
+   var message = '';
+   fields = new Array('First Name','Last Name','Email Address');
+   requiredFields = new Array('fname','lname','email');
+   var fieldvalue;
+   for (i=0; i<requiredFields.length; i++){
+     fieldvalue = eval("document.feedbackform." + requiredFields[i]+".value");
+     if (fieldvalue == '' || fieldvalue == '*First Name' || fieldvalue == '*Last Name' || fieldvalue == '*Email Address'){
+       message = message + fields[i] + "\n";
+     }
+   }
+   if (message != ''){
+     alert("Please fill out the required fields: \n" + message);
+     return false;
+   }
+   return checkEmail(document.feedbackform.email.value);
+ }
+ function checkEmail(email){
+     if ((email.indexOf('@') < 0) || ((email.charAt(email.length-4) != '.') && (email.charAt(email.length-3) != '.'))){
+       alert("You have entered an invalid email address. Please try again.");
+       return false;
+     }
+     return true;
+   }
+</script>
+
+<div id="feedback">
+  <a id="feedback-tab" href="#"><img src="images/btn_feedback.png" alt="Feedback" width="36" height="100" /></a>
+  <div id="feedback-form">
+	<h1>Feedback</h1>
+	<p>Call us at 855-GEAR-AMBUSH, or use the form below:</p>
+    <form action="/contact/contact.i" method="post" name="feedbackform" onsubmit="return checkfeedbackform()">
+	<input name="cmd" type="hidden" value="add" /> 
+	<input name="ltype" type="hidden" value="Contact Us Page" /> 
+	<input name="redirect" type="hidden" value="/thanks.html" /> 
+	<input name="mergefile" type="hidden" value="contact.email" />
+    <table cellspacing="2" cellpadding="0" border="0">
+      <tr>
+        <td><input name="fname" onblur="if(this.value=='')this.value='*First Name';" onfocus="if(this.value=='*First Name')this.value='';" value="*First Name" /></td>
+        <td><input name="lname" onblur="if(this.value=='')this.value='*Last Name';" onfocus="if(this.value=='*Last Name')this.value='';" value="*Last Name" /></td>
+      </tr>
+      <tr>
+        <td><input name="email" onblur="if(this.value=='')this.value='*Email Address';" onfocus="if(this.value=='*Email Address')this.value='';" value="*Email Address" /></td>
+        <td><input name="phone_home" onblur="if(this.value=='')this.value='Phone Number';" onfocus="if(this.value=='Phone Number')this.value='';" value="Phone Number" /></td>
+      </tr>
+      <tr>
+        <td colspan="2"><textarea name="comment" onblur="if(this.value=='')this.value='Comments';" onfocus="if(this.value=='Comments')this.value='';">Comments</textarea></td>
+      </tr>
+      <tr>
+        <td colspan="2" class="right"><input type="submit" value="Submit" /></td>
+      </tr>
+    </table>
+	</form>
+  </div>
+</div>
+
+<div id="def_option_row" style="display:none;">
+  <div class="size" id="attr_select_--fp_2_p_id--">
+    <img src="images/products/--image--_sm.jpg" alt="--label--" class="prodthumb" />
+    <span class="label">--label--</span><br />
+    <div id="progressbar_--fp_2_p_id--"></div>
+  </div>
+</div>
+
+<div id="bgtop">
+  <div id="bgbot">
+    <div id="header" class="wrapper">
+      <a href="/"><img src="images/logo.png" alt="Gear Ambush" id="logo" width="391" height="164" /></a>
+      <div id="nav">
+        <ul>
+          <li class="active"><a href="/"><img src="images/nav_currentdeal.png" alt="Current Deal"  width="129" height="41" /></a></li>
+          <li><a href="ecommerce/cart.i?cmd=view"><img src="images/nav_shoppingcart.png" alt="Shopping Cart" width="126" height="41" /></a></li>
+          <li><a href="/forum"><img src="images/nav_forum.png" alt="Forum" width="73" height="41" /></a></li>
+          <li><a href="contact.html"><img src="images/nav_contactus.png" alt="Contact Us" width="109" height="41" /></a></li>
+        </ul>
+      </div>
+
+      <div id="somed">
+        <div class="fb-like" data-href="http://gearambush.ev13.infogenix.com" data-send="true" data-layout="button_count" data-width="450" data-show-faces="true" data-font="arial"></div>
+           <!--Change This Iframe Link--><!--<iframe src="//www.facebook.com/plugins/like.php?href=http%3A%2F%2Fwww.facebook.com%2FGearAmbush&amp;send=false&amp;layout=button_count&amp;width=74&amp;show_faces=false&amp;action=like&amp;colorscheme=light&amp;font&amp;height=21" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:74px; height:21px;" allowTransparency="true"></iframe>-->
+        <a href="rss.xml"><img src="images/rss.png" alt="RSS" width="29" height="24" /></a>
+      </div>
+      <div class="clear"></div>
+    </div>
+
+    <div class="wrapper">
+      <div id="rightbar" class="sidebar">
+        <div class="widget">
+          <div class="widgettop"></div>
+          <div class="widgetmain">
+            <div class="alignright right">
+              <span class="discount"><span id="discount">--discount--</span>% Off</span>
+              <span class="listprice">List Price: $<span id="listprice">--customer_price--</span></span>
+            </div>
+            <span class="price">$<span id="price">--wholesale_price--</span></span>
+            <img src="images/select.gif" alt="Select Size" class="selectimg" id="selectattrimg" />
+            <span class="selecttext" id="selectattrtext">Select Color</span>
+            <div id="selectsize"></div>
+            <img src="images/select.gif" alt="Select Quantity" class="selectimg" id="selectqtyimg" />
+            <span class="selecttext" id="selectqtytext">Select Quantity</span>
+            <div id="selectqty">
+              <div class="qty" id="qty_select_1" style="cursor: pointer; ">1</div>
+              <div class="qty" id="qty_select_2" style="cursor: pointer; ">2</div>
+              <div class="qty" id="qty_select_3" style="cursor: pointer; ">3</div>
+              <div class="qty" id="qty_select_4" style="cursor: pointer; ">4</div>
+              <div class="qty" id="qty_select_5" style="cursor: pointer; ">5</div>
+            </div>
+            <div class="center">
+              <form action="ecommerce/cart.i" method="post">
+              <input type="hidden" name="cmd" value="addtocart">
+              <input type="hidden" name="atidlist" id="attr" value="">
+              <input type="hidden" name="qty" id="qty" value="">
+              <input type="image" src="images/btn_ambushit.gif" value="Submit" alt="Add to Cart" width="222" height="56" />
+              </form>
+            </div>
+                                        
+            <div id="quantityremaining">
+              <p class="center nomar">Quantity Remaining</p>
+              <div id="progressbar_total"></div>
+            </div>
+            <div id="timeremaining">
+              <p class="center nomar">Time Remaining</p>
+              <div id="timeleft">
+                <span id="hours">02</span>
+                <span id="minutes">21</span>
+                <span id="seconds">57</span>
+              </div>
+            </div>
+            <div align="center"><a href="/shop/c/1/">Other Items</a></div>
+          </div>
+          <div class="widgetbot"></div>
+        </div>
+
+        <div class="widget">
+          <div class="widgettop"></div>
+          <div class="widgetmain">
+            <h3>Share This Deal:</h3>
+            <div id="share" class="center">
+              <a href="http://www.twitter.com"><img src="images/icon_twitter.gif" alt="Twitter" width="32" height="32" /></a>
+              <a href="http://www.sharethis.com"><img src="images/icon_share.gif" alt="Share" width="32" height="32" /></a>
+              <a href="mailto:"><img src="images/icon_email.gif" alt="Email" width="32" height="32" /></a>
+            </div>
+          </div>
+          <div class="widgetbot"></div>
+        </div>
+
+        <div class="widget">
+          <div class="widgettop"></div>
+          <div class="widgetmain">
+            <h3>Deal Updates</h3>
+            <p>Don't miss out on any deals! Sign up to get an email when new deals begin.</p>
+            <form action="/contact/contact.i" method="post" name="dealupdates" id="dealupdates">
+            <input name="cmd" type="hidden" value="add">
+            <input type="hidden" value="Deal Updates" name="ltype">
+            <input type="hidden" value="Deal Updates" name="formtype">
+            <input type="hidden" name="noemail" value="1">
+            <input type="hidden" value="/mailinglist_thanks.html" name="redirect">
+            <input id="fname" type="text" name="fname" value="First Name" onFocus="if(this.value=='First Name')this.value='';" onBlur="if(this.value=='')this.value='First Name';"  />
+            <input id="lname" type="text" name="lname" value="Last Name" onFocus="if(this.value=='Last Name')this.value='';" onBlur="if(this.value=='')this.value='Last Name';" />
+            <div class="middle mb10">
+              <input type="checkbox" name="emailme" checked="checked" /> <span class="checktext">Email me at: </span>
+              <input id="email" type="email" name="email" value="Email Address" onFocus="if(this.value=='Email Address')this.value='';" onBlur="if(this.value=='')this.value='Email Address';" />
+            </div>
+            <div class="submit"><input type="image" src="images/btn_submit.gif" alt="Submit" /></div>
+            </form>
+          </div>
+          <div class="widgetbot"></div>
+        </div>
+      </div>
+
+      <div id="content">
+        <div class="contenttop"></div>
+        <div class="contentmain">
+          <img src="images/products/_sm.jpg" alt="" style="float: right;"/>
+<div id="option_rows">
+	
+</div>
+
+	<div id="def_option_prod" style="display:none;">
+		<h1>--prodname--</h1>
+		<div id="mainimg">
+		<img src="images/products/--graphic--_big.jpg" alt="--prodname--" />
+		</div>
+		<div id="photothumbs"></div>
+		<h2>Product Description</h2>
+
+		<div>--prodlongdesc--</div>
+		
+	</div>
+
+        </div>
+        <div class="contentbot"></div>
+      </div>
+      <div class="clear"></div>
+    </div>
+
+    <div id="footer" class="wrapper">
+      <ul id="footernav">
+        <li><a href="contact.html">Contact Us</a></li>
+        <li><a href="shipping.html">Shipping</a></li>
+        <li><a href="/forum">Forum</a></li>
+        <li><a href="ecommerce/cart.i?cmd=view">Shopping Cart</a></li>
+        <li><a href="/">Current Deal</a></li>
+      </ul>
+      <span id="copy">Copyright &copy; 2012 Gear Ambush. All Rights Reserved.</span>
+      <ul id="copynav">
+        <li><a href="/">Home</a></li>
+        <li><a href="/about.html">About Us</a></li>
+        <li><a href="/returns.html">Returns</a></li>
+        <li><a href="/privacy-policy.html">Privacy Policy</a></li>
+      </ul>
+    </div>
+
+  </div>
+</div>
+
+</body>
+</html>
