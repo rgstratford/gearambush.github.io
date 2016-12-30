@@ -8,6 +8,7 @@ body { background: url('../images/bg.jpg') repeat center top; font-family: Verda
 h1 { font-size: 1.7em; color: #000; margin-bottom: 20px; line-height: 1.2em; }
 h2 { font-size: 1.2em; background: #000; color: #FFF; margin-bottom: 15px; padding: 5px 8px; border-radius: 5px; behavior: url('styles/PIE.htc'); position: relative; }
 h3 { font-size: 1.1em; color: #000; margin-bottom: 12px; }
+h4 { font-size: 1.2em; }
 a { text-decoration: none; color: #c92127; }
 p { margin: 0 0 15px 0; }
 form { font-family: Verdana, sans-serif; }
@@ -21,6 +22,7 @@ input[type="submit"]:hover { cursor: pointer; }
 input[type="image"] { padding: 0; height :auto; background: none; }
 ul, ol { margin-left: 20px; margin-bottom: 15px; }
 ul { list-style-image: url('../images/bullet_gray.gif'); }
+ul.list-1 { margin-bottom: 0px;}
 /* tables still need 'cellspacing="0"' in the markup */
 table { border-collapse: collapse; border-spacing: 0; }
 .clear { clear:both; }
