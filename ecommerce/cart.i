@@ -93,7 +93,7 @@ $(document).ready(function(){
 <div id="bgtop">
   <div id="bgbot">
     <div id="header" class="wrapper">
-      <a href="/"><img src="../images/logo.png" alt="Gear Ambush" id="logo" width="391" height="164" /></a>
+      <a href="../index.html"><img src="../images/logo.png" alt="Gear Ambush" id="logo" width="391" height="164" /></a>
       <div id="nav">
         <ul>
           <li><a href="/"><img src="../images/nav_currentdeal.png" alt="Current Deal" width="129" height="41" /></a></li>
