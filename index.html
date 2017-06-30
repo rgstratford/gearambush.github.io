@@ -16,7 +16,8 @@
 <!-- I'm assuming they are including jquery 1.8.0 below here???-->
 <script type="text/javascript" src="js/jquery-1.8.0.min.js"></script>
 <script type="text/javascript" src="scripts/jquery/jquery.doTimeout.js"></script>
-<script type="text/javascript" src="scripts/jquery/jquery.countdown.min.js"></script>
+<script type="text/javascript" src="js/jquery.plugin.js"></script>
+<script type="text/javascript" src="js/jquery.countdown.js"></script>
 <script type="text/javascript" src="js/jquery-ui.min.js"></script>
 <script type="text/javascript" src="js/fancybox/lib/jquery.mousewheel-3.0.6.pack.js"></script>
 <script type="text/javascript" src="js/fancybox/source/jquery.fancybox.pack.js"></script>
@@ -37,9 +38,11 @@
                         },
                 });
   }
+
+
 function serverTime() { 
     var time = null; 
-    $.ajax({url: 'index.i?cmd=server_date', 
+    $.ajax({url: 'localhost',  //'http://myserver.com/serverTime.php', 
         async: false, dataType: 'text', 
         success: function(text) { 
             time = new Date(text); 
@@ -47,9 +50,28 @@ function serverTime() {
             time = new Date(); 
     }}); 
     return time; 
-}
+  }  
 
-function dateRun(jsonObj){
+var servTime = serverTime();
+
+// Script for your timer -->
+  $(function () {
+    
+    var expires = new Date("Wed July 4 2017 12:04:57 GMT-0600 (MDT)");
+    
+    // Wire up your countdown timer
+    // $('#Countdown').countdown({until: expires, serverSync: serverTime(),  onExpiry: countdownFinished, layout: '{hnn} {mnn} {snn}'}); 
+ 	$('#Countdown').countdown({until: expires, serverSync: serverTime(),  layout: '{hnn} {mnn} {snn}'}); 
+  });
+    
+  // This function will trigger when your countdown expires
+  //function countdownFinished(){
+      // Finished - disable your button
+     // $("#YourButton").prop('disabled',true)
+  //}
+
+
+function dateRun(jsonObj){  // It is receiving a jsonOBJ and is then using parts of that jsonOBJ to perform functions
 	var d1 = new Date(jsonObj['countdowndate']);
   //var dtm = jsonObj['countdowndate'].split(' ');
   //var hms = dtm[1].split(':');
@@ -67,6 +89,8 @@ function dateRun(jsonObj){
   $('#timeleft').countdown({until: d1, format: 'HMS', layout:'<span id="hours">{h10}{h1}</span>'+
 	'<span id="minutes">{m10}{m1}</span>'+
 	'<span id="seconds">{s10}{s1}</span>', onExpiry: poll});
+
+
 
 /*
 <div id="tournament">'+
@@ -357,9 +381,10 @@ $(document).ready(function(){
             <div id="timeremaining">
               <p class="center nomar">Time Remaining</p>
               <div id="timeleft">
-                <span id="hours">02</span>
+                <span id="Countdown"></span>
+                <!-- <span id="hours">02</span>
                 <span id="minutes">21</span>
-                <span id="seconds">57</span>
+                <span id="seconds">57</span>  -->
               </div>
             </div>
             <div align="center"><a href="/shop/c/1/">Other Items</a></div>

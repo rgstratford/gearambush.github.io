@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <!-- Countdown-related CSS -->
+  <link href="css/jquery.countdown_NEW.css" rel='stylesheet'></link>
+  <!-- Necessary jQuery Files and Countdown Files -->
+  <script src="js/jquery.min.js"></script>
+  <script src="js/jquery.plugin.js"></script>
+  <script src="js/jquery.countdown.js"></script>
+  <!-- Script for your timer -->
+  <script>
+  $(function () {
+    // Define your end time (15 seconds from now)
+    // var expires = new Date();
+    // expires.setSeconds(expires.getSeconds() + 15); 
+
+    var expires = new Date("Wed July 4 2017 12:49:57 GMT-0600 (MDT)");
+    
+    // Wire up your countdown timer
+    // $('#defaultCountdown').countdown({until: expires,  onExpiry: countdownFinished }); 
+    $('#defaultCountdown').countdown({until: expires,  onExpiry: countdownFinished, layout: '{hn} Hr {mn} mins {sn} Sec'}); 
+ 
+  });
+    
+  // This function will trigger when your countdown expires
+  function countdownFinished(){
+      // Finished - disable your button
+      $("#YourButton").prop('disabled',true)
+  }
+  </script>
+</head>
+<body>
+  <!-- Your Countdown -->
+  <div id='defaultCountdown'></div>
+  <!-- Your Button -->
+  <button id='YourButton'>Your Button</button>
+</body>
+</html>

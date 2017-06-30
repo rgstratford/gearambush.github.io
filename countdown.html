@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <!-- Necessary jQuery Files and Countdown Files -->
+<script type="text/javascript" src="js/jquery-1.8.0.min.js"></script>
+<script type="text/javascript" src="scripts/jquery/jquery.doTimeout.js"></script>
+<script type="text/javascript" src="js/jquery.plugin.js"></script>
+<script type="text/javascript" src="js/jquery.countdown.js"></script>
+<script type="text/javascript" src="js/jquery-ui.min.js"></script>
+  <script type="text/javascript" src="js/jquery-ui.min.js"></script>
+  <!-- Script for your timer -->
+  <script>
+  $(function () {
+    // Define your end time (15 seconds from now)
+    // var expires = new Date();
+    // expires.setSeconds(expires.getSeconds() + 15); 
+
+    var expires = new Date("Wed July 4 2017 12:04:57 GMT-0600 (MDT)");
+    
+    // Wire up your countdown timer
+    // $('#Countdown').countdown({until: expires,  onExpiry: countdownFinished }); 
+    $('#Countdown').countdown({until: expires, serverSync: serverTime(),  onExpiry: countdownFinished, padZeroes: true, layout: '{hnn}      {mnn}      {snn}'}); 
+ 
+  });
+    
+  function serverTime() { 
+    var time = null; 
+    $.ajax({url: 'localhost', //http://myserver.com/serverTime.php', 
+        async: false, dataType: 'text', 
+        success: function(text) { 
+            time = new Date(text); 
+        }, error: function(http, message, exc) { 
+            time = new Date(); 
+    }}); 
+    return time; 
+  }  
+  // This function will trigger when your countdown expires
+  function countdownFinished(){
+      // Finished - disable your button
+      $("#YourButton").prop('disabled',true)
+  }
+  </script>
+</head>
+<body>
+  <!-- Your Countdown -->
+  <span id='Countdown'></span>
+  <!-- Your Button -->
+  <button id='YourButton'>Your Button</button>
+  <br><br>
+
+  
+  <span id="clock"></span>
+
+
+<script type="text/javascript">
+  // 15 days from now!
+  var date = new Date(new Date().valueOf() + 15 * 24 * 60 * 60 * 1000);
+  $('#clock').countdown({until: date}, function(event) {
+    $(this).html(event.strftime('%D days %H:%M:%S'));
+  });
+</script>
+</body>
+</html>

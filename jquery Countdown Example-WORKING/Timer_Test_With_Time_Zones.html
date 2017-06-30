@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Timezone Aware - jQuery.countdown</title>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width">
+  <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="//yui.yahooapis.com/pure/0.4.2/pure-min.css">
+  <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Source+Sans+Pro:300,600,300italic">
+  <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Oswald">
+  <link rel="stylesheet" href="http://hilios.github.io/jQuery.countdown/css/syntax.css">
+  <link rel="stylesheet" href="http://hilios.github.io/jQuery.countdown/css/main.css">
+  <script src="//code.jquery.com/jquery.js"></script>
+  <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/lodash.js/2.4.1/lodash.min.js"></script>
+  <script src="js/jquery.countdown.min.js"></script>
+</head>
+<body>
+<header>
+  <div class="container">
+    <div class="pure-g-r">
+      <div class="pure-u-1-5">
+        <a href="http://hilios.github.io/jQuery.countdown/" class="brand">jQuery.countdown</a>
+        <div class="nav-toggle pure-hidden-tablet pure-hidden-desktop">
+          <button class="pure-button">
+            <i class="fa fa-bars"></i>
+          </button>
+        </div>
+      </div>
+      <div class="pure-u-4-5">
+        <nav class="pure-menu pure-menu-horizontal pure-menu-open">
+
+        </nav>
+      </div>
+    </div>
+  </div>
+</header>
+<main>
+  <header class="content-header">
+  <div class="container">
+    <h1>
+      
+        <i class="fa fa-code"></i>
+        
+      Timezone Aware
+    </h1>
+  </div>
+</header>
+
+<div class="container">
+  <div class="ad pure-g-r">
+  <div class="pure-u-1-1">
+    <script async type="text/javascript" src="//cdn.carbonads.com/carbon.js?zoneid=1673&serve=C6AILKT&placement=hiliosgithubiojQuerycountdown" id="_carbonads_js"></script>
+  </div>
+</div>
+
+  <div class="pure-g-r">
+    
+    <div class="examples pure-u-3-5
+        ">
+      <article>
+        <p>Use <strong>MomentJS</strong> to display a countdown accordingly to the selected timezone no matter the localtime your computer is.</p>
+
+<div class="example-base">
+  <div class="header">
+    Next year from timezone: <br />
+    <select id="timezone"></select> <br />
+  </div>
+  <span id="clock"></span>
+  <small id="iso"></small>
+</div>
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.3/moment-with-locales.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.js"></script>
+
+<script src="moment/moment-timezone-with-data.js"></script>
+
+<script type="text/javascript">
+  // Handle timezone issue
+  var $select = $('#timezone');
+  var timezone = 'UTC';
+  // Populate the timezone dropdown
+  $.each(moment.tz.names(), function(i, value) {
+    $select.append('<option value="%s">%s</option'.replace(/%s/g, value));
+  });
+  // Select the UTC
+  $select.find('option[value="UTC"]').prop('selected', true);
+  $select.change(function(event) {
+    timezone = $(event.target).val();
+    updateCountdown()
+  });
+
+  // Now the easy part, handle the countdown!
+  var $clock = $('#clock');
+  var $iso = $('#iso');
+  $clock.on('update.countdown', function(event) {
+    $(this).html(event.strftime('%D days %H:%M:%S'));
+  });
+
+  function updateCountdown() {
+    var nextYear = new Date().getFullYear() + 1;
+    var date = moment.tz("%Y-01-01 00:00".replace("%Y", nextYear), timezone);
+    $clock.countdown(date.toDate());
+    console.log(date.toISOString());
+    $iso.html(date.format("YYYY-MM-DD HH:mm Z"));
+  }
+
+  // Run Forrest run!
+  updateCountdown();
+</script>
+
+
+</body>
+</html>

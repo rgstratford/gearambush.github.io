@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+<title>jQuery Countdown</title>
+<link rel="stylesheet" href="css/jquery.countdown.css">
+<style type="text/css">
+body > iframe { display: none; }
+
+#defaultCountdown { width: 240px; height: 45px; }
+</style>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+<script src="js/jquery.plugin.js"></script>
+<script src="js/jquery.countdown.js"></script>
+<!-- <script src="js/jquery.countdown.min.js"></script> -->
+<script>
+$(function () {
+	// var austDay = new Date();
+	// austDay = new Date(austDay.getFullYear() + 1, 1 - 1, 26);
+	var austDay = new Date("Wed July 4 2017 12:49:57 GMT-0600 (MDT)");
+	//$('#defaultCountdown').countdown({until: austDay});
+
+	//$('#defaultCountdown').countdown({until: austDay, format: 'HMS'});
+
+	$('#defaultCountdown').countdown({until: austDay}).on('update.countdown',   
+     function(event) {
+   var $this = $(this).html(event.strftime(''
+
+     //+ '<div><span>%-d</span>day%!d</div>'
+     + '<div><span>%H</span>hr</div>'
+     + '<div><span>%M</span>min</div>'
+     + '<div><span>%S</span>sec</div>'));
+ });
+
+	//$('#year').text(austDay.getFullYear());
+});
+</script>
+
+<div id="clock"></div>
+
+<script type="text/javascript">
+  var endDate = new Date("Wed July 4 2017 12:49:57 GMT-0600 (MDT)").getTime();
+
+  $('#clock').countdown(endDate).on('update.countdown', function(event) {
+    var $this = $(this).html(event.strftime(''
+      
+      + '<span>%H</span> '
+      + '<span>%M</span> '
+      + '<span>%S</span>'));
+  });
+</script>
+
+
+<br><br><br>
+<span id="clock2"></span>
+
+
+<script type="text/javascript">
+  // 15 days from now!
+  var date = new Date(new Date().valueOf() + 6 * 30 * 24 * 60 * 60 * 1000);
+  $('#clock2').countdown(date, function(event) {
+    $(this).html(event.strftime('%D days %H:%M:%S'));
+  });
+</script>
+
+</head>
+<body>
+<h1>jQuery Countdown Basics</h1>
+<p>This page demonstrates the very basics of the
+	<a href="http://keith-wood.name/countdown.html">jQuery Countdown plugin</a>.
+	It contains the minimum requirements for using the plugin and
+	can be used as the basis for your own experimentation.</p>
+<p>For more detail see the <a href="http://keith-wood.name/countdownRef.html">documentation reference</a> page.</p>
+<p>Counting down to 26 January <span id="year">2014</span>.</p>
+<div id="defaultCountdown"></div>
+<br> <br>
+<span id="clock"></span>
+</body>
+</html>

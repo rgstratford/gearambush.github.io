@@ -120,6 +120,7 @@ div.clear { width: 100%; height: 0; }
 .ui-progressbar-value { background: #ffffff !important; }
 #progressbar_total { background: #BB1F25; }
 .size { cursor: pointer; }
+#Countdown {font-size: 25px; margin-left: 15px;	word-spacing: 22px;}
 
 /* Forms */
 .i1-column-left { margin-right: 5px; }

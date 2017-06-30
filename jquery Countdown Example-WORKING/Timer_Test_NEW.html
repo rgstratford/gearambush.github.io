@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<title>Gear Ambush - Current Deal</title>
+<meta http-equiv="content-type" content="text/html;charset=utf-8" />
+<meta http-equiv="keywords" content="" />
+<meta http-equiv="description" content="" />
+
+<!-- <script type="text/javascript" src="js/jquery-1.8.0.min.js"></script>
+<script type="text/javascript" src="js/jquery-ui.min.js"></script>
+<script type="text/javascript" src="scripts/jquery_NEW/jquery.countdown.js"></script>
+<script type="text/javascript" src="scripts/jquery_NEW/jquery.countdown.min.js"></script>
+-->
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+<script src="js/jquery.plugin.js"></script>
+<script src="js/jquery.countdown.js"></script>
+<!-- Include MomentJS library to display a countdown accordingly to the selected timezone no matter the localtime of your computer-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.js"></script>
+<script src="moment/moment-timezone-with-data.js"></script>
+
+
+</head>
+<body>
+
+<script type="text/javascript">
+	var nextYear = moment.tz("2017-07-01 00:00", "America/Denver");
+
+	$('#clock1').countdown(nextYear.toDate(), function(event) {
+  		$(this).html(event.strftime('%D days %H:%M:%S'));
+	});
+
+</script>
+
+<div id="clock1"></div>
+
+
+<script type="text/javascript">
+	$("#clock").countdown("2020/10/10").on('update.countdown', function(event) {
+  var $this = $(this).html(event.strftime(''
+    + '<span>%-w</span> week%!w '
+    + '<span>%-d</span> day%!d '
+    + '<span>%H</span> hr '
+    + '<span>%M</span> min '
+    + '<span>%S</span> sec'));
+});
+</script>
+
+<div id="clock"></div>
+
+<!---
+	<div id="countdown"></div>
+	<script type="text/javascript">
+  		$("#countdown")
+  		.countdown("2017/01/01", function(event) {
+    	$(this).text(
+      	// event.strftime('%D days %H:%M:%S')
+      	event.strftime('%H:%M:%S')
+    	);
+  	});
+</script>
+-->
+
+</body>
+
+</html>

@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Callback style and formatter modifiers - jQuery.countdown</title>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width">
+  <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="//yui.yahooapis.com/pure/0.4.2/pure-min.css">
+  <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Source+Sans+Pro:300,600,300italic">
+  <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Oswald">
+  <link rel="stylesheet" href="http://hilios.github.io/jQuery.countdown/css/syntax.css">
+  <link rel="stylesheet" href="http://hilios.github.io/jQuery.countdown/css/main.css">
+  <script src="//code.jquery.com/jquery.js"></script>
+  <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/lodash.js/2.4.1/lodash.min.js"></script>
+  <script src="//cdn.rawgit.com/hilios/jQuery.countdown/2.2.0/dist/jquery.countdown.min.js"></script>
+</head>
+<body>
+<header>
+  <div class="container">
+    <div class="pure-g-r">
+      <div class="pure-u-1-5">
+        <a href="http://hilios.github.io/jQuery.countdown/" class="brand">jQuery.countdown</a>
+        <div class="nav-toggle pure-hidden-tablet pure-hidden-desktop">
+          <button class="pure-button">
+            <i class="fa fa-bars"></i>
+          </button>
+        </div>
+      </div>
+      <div class="pure-u-4-5">
+        <nav class="pure-menu pure-menu-horizontal pure-menu-open">
+          <ul>
+  <li >
+    <a href="http://hilios.github.io/jQuery.countdown/documentation.html">
+      Documentation
+    </a>
+  </li>
+  <li class="pure-menu-selected">
+    <a href="http://hilios.github.io/jQuery.countdown/examples.html">
+      Examples
+    </a>
+  </li>
+  <li >
+    <a href="http://hilios.github.io/jQuery.countdown/tests.html">
+      Test suite
+    </a>
+  </li>
+  <li>
+    <a href="https://github.com/hilios/jQuery.countdown">
+      GitHub Project
+    </a>
+  </li>
+  <li>
+    <a href="http://plugins.jquery.com/countdown/">
+      jQuery Plugins
+    </a>
+  </li>
+</ul>
+
+        </nav>
+      </div>
+    </div>
+  </div>
+</header>
+<main>
+  <header class="content-header">
+  <div class="container">
+    <h1>
+      
+        <i class="fa fa-code"></i>
+        
+      Callback style and formatter modifiers
+    </h1>
+  </div>
+</header>
+
+<div class="container">
+  <div class="ad pure-g-r">
+  <div class="pure-u-1-1">
+    <script async type="text/javascript" src="//cdn.carbonads.com/carbon.js?zoneid=1673&serve=C6AILKT&placement=hiliosgithubiojQuerycountdown" id="_carbonads_js"></script>
+  </div>
+</div>
+
+  <div class="pure-g-r">
+    
+    <div class="examples pure-u-3-5
+        ">
+      <article>
+        <p>Very similar to the legacy example, but uses the callback style instead. Format the output with blank-padded value for weeks (<code class="highlighter-rouge">%-w</code>) and days (<code class="highlighter-rouge">%-d</code>) and pluralize it’s output with <code class="highlighter-rouge">%!w</code> and <code class="highlighter-rouge">%!d</code>.</p>
+
+<div class="example-blocks">
+  This plugin will be available in ...
+  <div id="clock"></div>
+</div>
+
+<script type="text/javascript">
+  var sixMonths = new Date(new Date().valueOf() + 6 * 30 * 24 * 60 * 60 * 1000);
+
+  $('#clock').countdown(sixMonths).on('update.countdown', function(event) {
+    var $this = $(this).html(event.strftime(''
+      + '<span>%-w</span> week%!w '
+      + '<span>%-d</span> day%!d '
+      + '<span>%H</span> hr '
+      + '<span>%M</span> min '
+      + '<span>%S</span> sec'));
+  });
+</script>
+
+<div id="clock"></div>
+
+<script type="text/javascript">
+  var sixMonths = new Date(new Date().valueOf() + 6 * 30 * 24 * 60 * 60 * 1000);
+
+  $('#clock').countdown(sixMonths).on('update.countdown', function(event) {
+    var $this = $(this).html(event.strftime(''
+      + '<span>%-w</span> week%!w '
+      + '<span>%-d</span> day%!d '
+      + '<span>%H</span> hr '
+      + '<span>%M</span> min '
+      + '<span>%S</span> sec'));
+  });
+</script>
+
+<h5 id="html">HTML:</h5>
+
+<figure class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">"clock"</span><span class="nt">&gt;&lt;/div&gt;</span></code></pre></figure>
+
+<h5 id="js">JS:</h5>
+
+<figure class="highlight"><pre><code class="language-js" data-lang="js"><span class="nx">$</span><span class="p">(</span><span class="s1">'#clock'</span><span class="p">).</span><span class="nx">countdown</span><span class="p">(</span><span class="s1">'2020/10/10'</span><span class="p">).</span><span class="nx">on</span><span class="p">(</span><span class="s1">'update.countdown'</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">event</span><span class="p">)</span> <span class="p">{</span>
+  <span class="kd">var</span> <span class="nx">$this</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="k">this</span><span class="p">).</span><span class="nx">html</span><span class="p">(</span><span class="nx">event</span><span class="p">.</span><span class="nx">strftime</span><span class="p">(</span><span class="s1">''</span>
+    <span class="o">+</span> <span class="s1">'&lt;span&gt;%-w&lt;/span&gt; week%!w '</span>
+    <span class="o">+</span> <span class="s1">'&lt;span&gt;%-d&lt;/span&gt; day%!d '</span>
+    <span class="o">+</span> <span class="s1">'&lt;span&gt;%H&lt;/span&gt; hr '</span>
+    <span class="o">+</span> <span class="s1">'&lt;span&gt;%M&lt;/span&gt; min '</span>
+    <span class="o">+</span> <span class="s1">'&lt;span&gt;%S&lt;/span&gt; sec'</span><span class="p">));</span>
+<span class="p">});</span></code></pre></figure>
+
+
+      </article>
+    </div>
+    
+    <div class="pure-u-2-5">
+      <aside class="examples-list pure-menu pure-menu-open">
+  <ul>
+    <li class="pure-menu-heading">
+      <i class="fa fa-code"></i>
+      Examples
+    </li>
+    
+    
+    <li class="">
+      <a href="http://hilios.github.io/jQuery.countdown/examples/advanced-coupon-site.html">
+        Advanced coupon site
+      </a>
+    </li>
+    
+    
+    
+    <li class="">
+      <a href="http://hilios.github.io/jQuery.countdown/examples/basic-coupon-site.html">
+        Basic coupon site
+      </a>
+    </li>
+    
+    
+    
+    <li class="">
+      <a href="http://hilios.github.io/jQuery.countdown/examples/bootstrap.html">
+        Bootstrap
+      </a>
+    </li>
+    
+    
+    
+    
+    
+    <li class="">
+      <a href="http://hilios.github.io/jQuery.countdown/examples/count-up.html">
+        Continue after finish
+      </a>
+    </li>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <li class="">
+      <a href="http://hilios.github.io/jQuery.countdown/examples/legacy-style.html">
+        Legacy style
+      </a>
+    </li>
+    
+    
+    
+    <li class="">
+      <a href="http://hilios.github.io/jQuery.countdown/examples/month-and-week-offset.html">
+        Months and weeks offsets
+      </a>
+    </li>
+    
+    
+    
+    <li class="">
+      <a href="http://hilios.github.io/jQuery.countdown/examples/multiple-instances.html">
+        Multiple instances on the same page
+      </a>
+    </li>
+    
+    
+    
+    <li class="">
+      <a href="http://hilios.github.io/jQuery.countdown/examples/show-total-hours.html">
+        Sum of total hours remaining
+      </a>
+    </li>
+    
+    
+    
+    
+    
+    <li class="">
+      <a href="http://hilios.github.io/jQuery.countdown/examples/timezone-aware.html">
+        Timezone Aware
+      </a>
+    </li>
+    
+    
+    
+    <li class="pure-menu-selected">
+      <a href="http://hilios.github.io/jQuery.countdown/examples/website-launch.html">
+        Callback style and formatter modifiers
+      </a>
+    </li>
+    
+    
+    <li>
+      <a href="http://hilios.github.io/jQuery.countdown/examples.html">
+        <i class="fa fa-arrow-circle-left"></i>
+        Back
+      </a>
+    </li>
+  </ul>
+</aside>
+
+    </div>
+    
+  </div>
+</div>
+
+</main>
+<footer>
+  <div class="container">
+    <p>
+      <div class="gh-btns">
+  <!-- Follow -->
+  <iframe src="http://ghbtns.com/github-btn.html?user=hilios&type=follow"
+    allowtransparency="true" frameborder="0" scrolling="0" width="120" height="20"></iframe>
+  <!-- Watch -->
+  <iframe src="http://ghbtns.com/github-btn.html?user=hilios&repo=jQuery.countdown&type=watch&count=true"
+    allowtransparency="true" frameborder="0" scrolling="0" width="95" height="20"></iframe>
+  <!-- Fork -->
+  <iframe src="http://ghbtns.com/github-btn.html?user=hilios&repo=jQuery.countdown&type=fork&count=true"
+      allowtransparency="true" frameborder="0" scrolling="0" width="110" height="20"></iframe>
+</div>
+
+    </p>
+    <p>
+      The Final Countdown (jQuery.countdown) was created and is maintained by <a href="https://github.com/hilios" target="_blank">@hilios</a>
+      <br/>
+      This is a free software is licensed under the <a href="https://github.com/hilios/jQuery.countdown/blob/master/LICENSE.md" target="_blank">MIT License</a>
+    </p>
+    <nav>
+      <ul>
+  <li >
+    <a href="http://hilios.github.io/jQuery.countdown/documentation.html">
+      Documentation
+    </a>
+  </li>
+  <li class="pure-menu-selected">
+    <a href="http://hilios.github.io/jQuery.countdown/examples.html">
+      Examples
+    </a>
+  </li>
+  <li >
+    <a href="http://hilios.github.io/jQuery.countdown/tests.html">
+      Test suite
+    </a>
+  </li>
+  <li>
+    <a href="https://github.com/hilios/jQuery.countdown">
+      GitHub Project
+    </a>
+  </li>
+  <li>
+    <a href="http://plugins.jquery.com/countdown/">
+      jQuery Plugins
+    </a>
+  </li>
+</ul>
+
+    </nav>
+  </div>
+</footer>
+<a class="pure-hidden-phone pure-hidden-tablet" href="https://github.com/hilios/jQuery.countdown"><img style="position: absolute; top: 0; right: 0; border: 0; position: fixed; z-index: 1050;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png" alt="Fork me on GitHub"></a>
+
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+ga('create', 'UA-3435172-4', 'hilios.github.io');
+ga('send', 'pageview');
+</script>
+<script type="text/javascript">
+$(function() {
+  $('.nav-toggle > button').click(function(event) {
+    $('header nav').toggleClass('active');
+  });
+});
+</script>
+</body>
+</html>
